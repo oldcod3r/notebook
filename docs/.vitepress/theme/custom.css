@@ -1,0 +1,26 @@
+/* 代码块上方的来源标注：哪个函数、哪个文件 */
+.vp-doc .code-caption {
+	margin: 24px 0 -12px;
+	font-size: 13px;
+	line-height: 1.6;
+	color: var(--vp-c-text-3);
+	letter-spacing: 0.01em;
+}
+
+.vp-doc .code-caption code {
+	background: transparent;
+	padding: 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--vp-c-brand-1);
+}
+
+/* 走读文章里代码块偏多，收一点行高让整块更紧凑 */
+.vp-doc div[class*="language-"] code {
+	line-height: 1.6;
+}
+
+/* 行号是文章的核心信息（与上游仓库真实行号一致），别让它太淡 */
+.vp-doc .line-numbers-wrapper {
+	opacity: 0.75;
+}
