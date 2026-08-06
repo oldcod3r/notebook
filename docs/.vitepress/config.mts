@@ -28,6 +28,8 @@ export default defineConfig({
 						{ text: "总览", link: "/pi/" },
 						{ text: "agent loop 源码走读", link: "/pi/agent-loop" },
 						{ text: "pi-ai 源码走读", link: "/pi/pi-ai" },
+						{ text: "工具执行源码走读", link: "/pi/tools" },
+						{ text: "事件系统源码走读", link: "/pi/events" },
 					],
 				},
 			],
