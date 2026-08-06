@@ -1,9 +1,9 @@
 ---
-title: pi agent harness
+title: Pi Agent Harness
 description: earendil-works/pi 源码走读系列总览
 ---
 
-# pi agent harness
+# Pi Agent Harness
 
 [earendil-works/pi](https://github.com/earendil-works/pi) 是一个 TypeScript 编写的 agent 框架，包含一个可自扩展的编码 agent CLI。这个系列拆解它的核心实现。
 

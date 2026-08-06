@@ -23,7 +23,7 @@ export default defineConfig({
 		sidebar: {
 			"/pi/": [
 				{
-					text: "pi agent harness",
+					text: "Pi Agent Harness",
 					items: [
 						{ text: "总览", link: "/pi/" },
 						{ text: "pi-ai", link: "/pi/pi-ai" },
