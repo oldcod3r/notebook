@@ -13,6 +13,8 @@
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [工具执行源码走读](https://oldcod3r.github.io/notebook/pi/tools) —— 七个内置工具：可替换后端、截断策略、并发写入 |
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [事件系统源码走读](https://oldcod3r.github.io/notebook/pi/events) —— 事件的三层扇出与背压边界 |
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [扩展系统源码走读](https://oldcod3r.github.io/notebook/pi/extensions) —— 一个函数撑起的自扩展能力，四种分发策略 |
+| [pi](https://oldcod3r.github.io/notebook/pi/) | [会话存储源码走读](https://oldcod3r.github.io/notebook/pi/sessions) —— append-only 的 JSONL 树，分支即移动指针 |
+| [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-tui 源码走读](https://oldcod3r.github.io/notebook/pi/tui) —— 一个方法的组件契约与差分渲染 |
 
 ## 本地开发
 

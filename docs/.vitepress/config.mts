@@ -31,6 +31,8 @@ export default defineConfig({
 						{ text: "工具执行源码走读", link: "/pi/tools" },
 						{ text: "事件系统源码走读", link: "/pi/events" },
 						{ text: "扩展系统源码走读", link: "/pi/extensions" },
+						{ text: "会话存储源码走读", link: "/pi/sessions" },
+						{ text: "pi-tui 源码走读", link: "/pi/tui" },
 					],
 				},
 			],
