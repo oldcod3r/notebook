@@ -12,6 +12,7 @@
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-ai 源码走读](https://oldcod3r.github.io/notebook/pi/pi-ai) —— 多厂商 LLM 统一层，46 个 provider × 10 种协议如何解耦 |
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [工具执行源码走读](https://oldcod3r.github.io/notebook/pi/tools) —— 七个内置工具：可替换后端、截断策略、并发写入 |
 | [pi](https://oldcod3r.github.io/notebook/pi/) | [事件系统源码走读](https://oldcod3r.github.io/notebook/pi/events) —— 事件的三层扇出与背压边界 |
+| [pi](https://oldcod3r.github.io/notebook/pi/) | [扩展系统源码走读](https://oldcod3r.github.io/notebook/pi/extensions) —— 一个函数撑起的自扩展能力，四种分发策略 |
 
 ## 本地开发
 
