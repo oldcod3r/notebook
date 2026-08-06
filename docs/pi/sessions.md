@@ -13,6 +13,74 @@ description: append-only 的 JSONL 树：分支只是移动一个指针，压缩
 
 这个选择带来的能力：从历史任意一点重跑、编辑早先的提问而不丢失后续、上下文压缩后还能翻出被压缩掉的原文。代价是「当前对话是什么」不再是一个数组，而是**一次从叶子到根的回溯**。
 
+## 先看一张图
+
+一份会话文件是**逐行追加**的，而这些行靠 `parentId` 相互指认，形成一棵树。下图左右是同一份数据：
+
+<figure class="diagram">
+<svg viewBox="0 0 780 330" role="img" aria-label="左侧是 JSONL 文件的逐行内容，右侧是这些行通过 parentId 形成的树，其中一条分支被放弃">
+  <style>
+    .d-mono { font-family: ui-monospace, SFMono-Regular, Menlo, "Cascadia Mono", monospace; }
+    .d-title { font-size: 13px; font-weight: 600; fill: var(--vp-c-text-1); }
+    .d-sub { font-size: 11px; fill: var(--vp-c-text-3); }
+    .d-code { font-size: 11.5px; fill: var(--vp-c-text-2); }
+    .d-node-label { font-size: 12px; fill: var(--vp-c-text-1); font-weight: 600; }
+    .d-node-text { font-size: 11px; fill: var(--vp-c-text-2); }
+    .d-panel { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-divider); }
+    .d-node { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-divider); stroke-width: 1.5; }
+    .d-node-active { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-brand-1); stroke-width: 2; }
+    .d-node-dead { fill: none; stroke: var(--vp-c-divider); stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .d-edge { stroke: var(--vp-c-divider); stroke-width: 1.5; fill: none; }
+    .d-edge-active { stroke: var(--vp-c-brand-1); stroke-width: 2; fill: none; }
+    .d-accent { fill: var(--vp-c-brand-1); }
+    .d-muted { fill: var(--vp-c-text-3); }
+  </style>
+
+  <text class="d-title" x="0" y="16">会话文件 · 逐行追加，永不改写</text>
+  <text class="d-sub d-mono" x="0" y="33">2026-08-06_xxx.jsonl</text>
+  <rect class="d-panel" x="0" y="44" width="352" height="196" rx="3" />
+  <text class="d-code d-mono" x="14" y="68">{"id":"a1", "parentId":null, …} user: 改登录</text>
+  <text class="d-code d-mono" x="14" y="94">{"id":"a2", "parentId":"a1", …} asst: 好的…</text>
+  <text class="d-code d-mono" x="14" y="120">{"id":"a3", "parentId":"a2", …} user: 换个方案</text>
+  <text class="d-code d-mono" x="14" y="146">{"id":"a4", "parentId":"a2", …} user: 算了，改注册</text>
+  <text class="d-code d-mono" x="14" y="172">{"id":"a5", "parentId":"a4", …} asst: 改好了</text>
+  <text class="d-sub d-mono" x="14" y="204">a3 和 a4 的 parentId 都是 a2</text>
+  <text class="d-sub d-mono" x="14" y="220">→ a2 有两个孩子，这里分叉了</text>
+
+  <text class="d-muted d-mono" x="372" y="146" font-size="18">→</text>
+
+  <text class="d-title" x="410" y="16">同一份数据形成的树</text>
+  <text class="d-sub" x="410" y="33">虚线是被放弃的分支，它仍在文件里</text>
+
+  <line class="d-edge-active" x1="560" y1="76" x2="560" y2="98" />
+  <path class="d-edge" d="M 560 124 L 560 138 L 478 138 L 478 154" />
+  <path class="d-edge-active" d="M 560 124 L 560 138 L 642 138 L 642 154" />
+  <line class="d-edge-active" x1="642" y1="180" x2="642" y2="202" />
+
+  <rect class="d-node-active" x="528" y="50" width="64" height="26" rx="3" />
+  <text class="d-node-label d-mono" x="560" y="67" text-anchor="middle">a1</text>
+  <rect class="d-node-active" x="528" y="98" width="64" height="26" rx="3" />
+  <text class="d-node-label d-mono" x="560" y="115" text-anchor="middle">a2</text>
+
+  <rect class="d-node-dead" x="446" y="154" width="64" height="26" rx="3" />
+  <text class="d-node-text d-mono" x="478" y="171" text-anchor="middle">a3</text>
+  <text class="d-sub" x="478" y="196" text-anchor="middle">已放弃</text>
+
+  <rect class="d-node-active" x="610" y="154" width="64" height="26" rx="3" />
+  <text class="d-node-label d-mono" x="642" y="171" text-anchor="middle">a4</text>
+  <rect class="d-node-active" x="610" y="202" width="64" height="26" rx="3" />
+  <text class="d-node-label d-mono" x="642" y="219" text-anchor="middle">a5</text>
+
+  <text class="d-accent d-mono" x="700" y="219" font-size="11">← leafId</text>
+  <text class="d-sub" x="410" y="262">当前对话 = 从 leafId 顺着 parentId 爬回根：</text>
+  <text class="d-accent d-mono" x="410" y="281" font-size="12" font-weight="600">a1 → a2 → a4 → a5</text>
+  <text class="d-sub" x="410" y="302">a3 不在这条路径上，于是不进上下文；</text>
+  <text class="d-sub" x="410" y="318">但它没被删除，随时可以切回去。</text>
+</svg>
+</figure>
+
+「从 a2 重新提问」这个动作，在数组模型里要删掉 a3；在这里只是**把 `leafId` 指回 a2**，下一条追加自然成了 a2 的第二个孩子。
+
 ## 1. 每条记录都知道自己的父亲
 
 <p class="code-caption"><code>core/session-manager.ts</code></p>
@@ -262,11 +330,90 @@ export function buildContextEntries(
 
 压缩产生的只是路径上的一条 `compaction` 条目，带两个关键字段：`summary`（摘要文本）和 `firstKeptEntryId`（从哪条开始保留原文）。**被"压缩掉"的条目仍然在文件里、仍然在树上**，只是构造模型上下文时被跳过。
 
-组装顺序是：
+组装顺序是这样的：
 
-```text
-[compaction 摘要]  +  [firstKeptEntryId .. 压缩点之间的原文]  +  [压缩点之后的新对话]
-```
+<figure class="diagram">
+<svg viewBox="0 0 780 300" role="img" aria-label="上排是当前路径的全部条目，下排是模型实际看到的上下文：摘要在最前，后面接 firstKeptEntryId 起的原文和压缩点之后的新对话">
+  <style>
+    .c-mono { font-family: ui-monospace, SFMono-Regular, Menlo, "Cascadia Mono", monospace; }
+    .c-title { font-size: 13px; font-weight: 600; fill: var(--vp-c-text-1); }
+    .c-sub { font-size: 11px; fill: var(--vp-c-text-3); }
+    .c-label { font-size: 11.5px; fill: var(--vp-c-text-1); font-weight: 600; }
+    .c-skip-text { font-size: 11.5px; fill: var(--vp-c-text-3); }
+    .c-box { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-divider); stroke-width: 1.5; }
+    .c-box-skip { fill: none; stroke: var(--vp-c-divider); stroke-width: 1.5; stroke-dasharray: 4 3; }
+    .c-box-keep { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-brand-1); stroke-width: 2; }
+    .c-box-sum { fill: var(--vp-c-bg-soft); stroke: var(--vp-c-warning-1); stroke-width: 2; }
+    .c-line { stroke: var(--vp-c-divider); stroke-width: 1.5; fill: none; }
+    .c-flow { stroke: var(--vp-c-brand-1); stroke-width: 1.5; fill: none; }
+    .c-flow-sum { stroke: var(--vp-c-warning-1); stroke-width: 1.5; fill: none; }
+    .c-accent { fill: var(--vp-c-brand-1); }
+    .c-warn { fill: var(--vp-c-warning-1); }
+  </style>
+
+  <text class="c-title" x="0" y="16">当前路径（buildSessionPath 的结果）</text>
+
+  <rect class="c-box-skip" x="0" y="34" width="62" height="30" rx="3" />
+  <text class="c-skip-text c-mono" x="31" y="54" text-anchor="middle">e1</text>
+  <rect class="c-box-skip" x="72" y="34" width="62" height="30" rx="3" />
+  <text class="c-skip-text c-mono" x="103" y="54" text-anchor="middle">e2</text>
+  <rect class="c-box-skip" x="144" y="34" width="62" height="30" rx="3" />
+  <text class="c-skip-text c-mono" x="175" y="54" text-anchor="middle">e3</text>
+
+  <rect class="c-box-keep" x="216" y="34" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="247" y="54" text-anchor="middle">e4</text>
+  <rect class="c-box-keep" x="288" y="34" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="319" y="54" text-anchor="middle">e5</text>
+
+  <rect class="c-box-sum" x="360" y="34" width="92" height="30" rx="3" />
+  <text class="c-label c-mono" x="406" y="54" text-anchor="middle">compaction</text>
+
+  <rect class="c-box-keep" x="462" y="34" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="493" y="54" text-anchor="middle">e6</text>
+  <rect class="c-box-keep" x="534" y="34" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="565" y="54" text-anchor="middle">e7</text>
+
+  <path class="c-line" d="M 0 74 L 0 82 L 206 82 L 206 74" />
+  <text class="c-sub" x="103" y="98" text-anchor="middle">已被摘要覆盖，跳过</text>
+
+  <path class="c-line" d="M 216 74 L 216 82 L 350 82 L 350 74" />
+  <text class="c-accent" x="283" y="98" text-anchor="middle" font-size="11">firstKeptEntryId 起，保留原文</text>
+
+  <path class="c-line" d="M 462 74 L 462 82 L 596 82 L 596 74" />
+  <text class="c-accent" x="529" y="98" text-anchor="middle" font-size="11">压缩点之后的新对话</text>
+
+  <path class="c-flow-sum" d="M 406 112 L 406 132 L 41 132 L 41 168" marker-end="url(#arrowW)" />
+  <path class="c-flow" d="M 247 112 L 247 148 L 175 148 L 175 168" marker-end="url(#arrowB)" />
+  <path class="c-flow" d="M 319 112 L 319 148 L 247 148 L 247 168" marker-end="url(#arrowB)" />
+  <path class="c-flow" d="M 493 112 L 493 148 L 319 148 L 319 168" marker-end="url(#arrowB)" />
+  <path class="c-flow" d="M 565 112 L 565 148 L 391 148 L 391 168" marker-end="url(#arrowB)" />
+
+  <defs>
+    <marker id="arrowB" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="var(--vp-c-brand-1)" />
+    </marker>
+    <marker id="arrowW" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6 z" fill="var(--vp-c-warning-1)" />
+    </marker>
+  </defs>
+
+  <text class="c-title" x="0" y="196">模型看到的上下文（buildContextEntries 的结果）</text>
+
+  <rect class="c-box-sum" x="0" y="212" width="82" height="30" rx="3" />
+  <text class="c-label c-mono" x="41" y="232" text-anchor="middle">摘要</text>
+  <rect class="c-box-keep" x="144" y="212" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="175" y="232" text-anchor="middle">e4</text>
+  <rect class="c-box-keep" x="216" y="212" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="247" y="232" text-anchor="middle">e5</text>
+  <rect class="c-box-keep" x="288" y="212" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="319" y="232" text-anchor="middle">e6</text>
+  <rect class="c-box-keep" x="360" y="212" width="62" height="30" rx="3" />
+  <text class="c-label c-mono" x="391" y="232" text-anchor="middle">e7</text>
+
+  <text class="c-warn" x="0" y="266" font-size="11">摘要排在最前——它代表更早的历史</text>
+  <text class="c-sub" x="0" y="284">e1 / e2 / e3 仍在文件里、仍在树上，只是这次没进上下文</text>
+</svg>
+</figure>
 
 摘要被放在**最前面**——它代表的是更早的历史，位置上就该在保留原文之前。
 

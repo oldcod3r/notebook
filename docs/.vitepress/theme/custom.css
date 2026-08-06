@@ -24,3 +24,20 @@
 .vp-doc .line-numbers-wrapper {
 	opacity: 0.75;
 }
+
+/* 内嵌 SVG 图示：跟随主题、窄屏可横向滚动 */
+.vp-doc figure.diagram {
+	margin: 24px 0;
+	padding: 20px 16px;
+	border: 1px solid var(--vp-c-divider);
+	border-radius: 8px;
+	background: var(--vp-c-bg);
+	overflow-x: auto;
+}
+
+.vp-doc figure.diagram svg {
+	display: block;
+	width: 100%;
+	min-width: 620px;
+	height: auto;
+}
