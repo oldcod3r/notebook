@@ -1,9 +1,9 @@
 ---
-title: pi-ai 逐段精读
+title: pi-ai 源码走读
 description: pi 的多厂商 LLM 统一层，46 个 provider 与 10 种协议如何解耦
 ---
 
-# pi-ai 逐段精读
+# pi-ai 源码走读
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，包 `packages/ai/`。**代码块左侧行号与仓库真实行号一致**，caption 标注了各自来自哪个文件。

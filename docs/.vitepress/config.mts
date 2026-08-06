@@ -26,8 +26,8 @@ export default defineConfig({
 					text: "pi agent harness",
 					items: [
 						{ text: "总览", link: "/pi/" },
-						{ text: "agent loop 逐段精读", link: "/pi/agent-loop" },
-						{ text: "pi-ai 逐段精读", link: "/pi/pi-ai" },
+						{ text: "agent loop 源码走读", link: "/pi/agent-loop" },
+						{ text: "pi-ai 源码走读", link: "/pi/pi-ai" },
 					],
 				},
 			],

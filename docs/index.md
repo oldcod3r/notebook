@@ -10,7 +10,7 @@ hero:
       text: 从 pi agent harness 开始
       link: /pi/
     - theme: alt
-      text: agent loop 逐段精读
+      text: agent loop 源码走读
       link: /pi/agent-loop
 
 features:

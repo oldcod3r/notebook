@@ -8,8 +8,8 @@
 
 | 分组 | 篇目 |
 |---|---|
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [agent loop 逐段精读](https://oldcod3r.github.io/notebook/pi/agent-loop) —— `earendil-works/pi` 的 agent 循环，792 行逐段拆解 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-ai 逐段精读](https://oldcod3r.github.io/notebook/pi/pi-ai) —— 多厂商 LLM 统一层，46 个 provider × 10 种协议如何解耦 |
+| [pi](https://oldcod3r.github.io/notebook/pi/) | [agent loop 源码走读](https://oldcod3r.github.io/notebook/pi/agent-loop) —— `earendil-works/pi` 的 agent 循环，792 行逐段拆解 |
+| [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-ai 源码走读](https://oldcod3r.github.io/notebook/pi/pi-ai) —— 多厂商 LLM 统一层，46 个 provider × 10 种协议如何解耦 |
 
 ## 本地开发
 
