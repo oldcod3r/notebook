@@ -27,6 +27,7 @@ export default defineConfig({
 					items: [
 						{ text: "总览", link: "/pi/" },
 						{ text: "agent loop 逐段精读", link: "/pi/agent-loop" },
+						{ text: "pi-ai 逐段精读", link: "/pi/pi-ai" },
 					],
 				},
 			],
