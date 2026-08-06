@@ -6,15 +6,17 @@
 
 ## 内容
 
-| 分组 | 篇目 |
-|---|---|
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [agent loop 源码走读](https://oldcod3r.github.io/notebook/pi/agent-loop) —— `earendil-works/pi` 的 agent 循环，792 行逐段拆解 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-ai 源码走读](https://oldcod3r.github.io/notebook/pi/pi-ai) —— 多厂商 LLM 统一层，46 个 provider × 10 种协议如何解耦 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [工具执行源码走读](https://oldcod3r.github.io/notebook/pi/tools) —— 七个内置工具：可替换后端、截断策略、并发写入 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [事件系统源码走读](https://oldcod3r.github.io/notebook/pi/events) —— 事件的三层扇出与背压边界 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [扩展系统源码走读](https://oldcod3r.github.io/notebook/pi/extensions) —— 一个函数撑起的自扩展能力，四种分发策略 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [会话存储源码走读](https://oldcod3r.github.io/notebook/pi/sessions) —— append-only 的 JSONL 树，分支即移动指针 |
-| [pi](https://oldcod3r.github.io/notebook/pi/) | [pi-tui 源码走读](https://oldcod3r.github.io/notebook/pi/tui) —— 一个方法的组件契约与差分渲染 |
+`pi` 系列按运行时链路排列：
+
+| # | 篇目 | 一句话 |
+|---|---|---|
+| 1 | [pi-ai](https://oldcod3r.github.io/notebook/pi/pi-ai) | 多厂商 LLM 统一层，46 个 provider × 10 种协议如何解耦 |
+| 2 | [agent loop](https://oldcod3r.github.io/notebook/pi/agent-loop) | agent 循环本体，792 行逐段拆解 |
+| 3 | [工具执行](https://oldcod3r.github.io/notebook/pi/tools) | 七个内置工具：可替换后端、截断策略、并发写入 |
+| 4 | [事件系统](https://oldcod3r.github.io/notebook/pi/events) | 事件的三层扇出与背压边界 |
+| 5 | [会话存储](https://oldcod3r.github.io/notebook/pi/sessions) | append-only 的 JSONL 树，分支即移动指针 |
+| 6 | [pi-tui](https://oldcod3r.github.io/notebook/pi/tui) | 一个方法的组件契约与差分渲染 |
+| 7 | [扩展系统](https://oldcod3r.github.io/notebook/pi/extensions) | 一个函数撑起的自扩展能力，四种分发策略 |
 
 ## 本地开发
 

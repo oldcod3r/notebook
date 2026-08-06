@@ -1,9 +1,9 @@
 ---
-title: 会话存储源码走读
+title: 会话存储
 description: append-only 的 JSONL 树：分支只是移动一个指针，压缩不删除任何东西
 ---
 
-# 会话存储源码走读
+# 会话存储
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，文件 `packages/coding-agent/src/core/session-manager.ts`，共 1714 行。**代码块左侧行号与仓库真实行号一致**。

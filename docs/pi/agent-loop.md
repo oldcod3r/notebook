@@ -1,9 +1,9 @@
 ---
-title: agent loop 源码走读
+title: agent loop
 description: pi agent harness 中 packages/agent/src/agent-loop.ts 的源码走读
 ---
 
-# agent loop 源码走读
+# agent loop
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，文件 `packages/agent/src/agent-loop.ts`，共 792 行。**代码块左侧行号与仓库真实行号一致**，可以直接对着源码跳。

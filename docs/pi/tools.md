@@ -1,9 +1,9 @@
 ---
-title: 工具执行源码走读
+title: 工具执行
 description: pi coding-agent 的七个内置工具：可替换的执行后端、截断策略、并发写入
 ---
 
-# 工具执行源码走读
+# 工具执行
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，包 `packages/coding-agent/src/core/tools/`。**代码块左侧行号与仓库真实行号一致**，caption 标注了各自来自哪个文件。

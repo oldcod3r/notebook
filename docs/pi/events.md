@@ -1,9 +1,9 @@
 ---
-title: 事件系统源码走读
+title: 事件系统
 description: 一条 AgentEvent 从循环发出后，如何扇出到扩展、UI 和会话文件
 ---
 
-# 事件系统源码走读
+# 事件系统
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，主要文件 `packages/coding-agent/src/core/agent-session.ts`、`event-bus.ts`。**代码块左侧行号与仓库真实行号一致**。

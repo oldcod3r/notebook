@@ -1,9 +1,9 @@
 ---
-title: pi-tui 源码走读
+title: pi-tui
 description: 一个方法的组件契约、60fps 节流，以及只重画变化行的差分渲染
 ---
 
-# pi-tui 源码走读
+# pi-tui
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，包 `packages/tui/`。**代码块左侧行号与仓库真实行号一致**。

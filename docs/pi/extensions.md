@@ -1,9 +1,9 @@
 ---
-title: 扩展系统源码走读
+title: 扩展系统
 description: pi coding-agent 的自扩展能力：一个函数、33 个事件、四种分发策略
 ---
 
-# 扩展系统源码走读
+# 扩展系统
 
 ::: info 走读基准
 [earendil-works/pi](https://github.com/earendil-works/pi) @ commit `588915ec7`，包 `packages/coding-agent/src/core/extensions/`。**代码块左侧行号与仓库真实行号一致**。
