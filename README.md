@@ -6,6 +6,10 @@
 
 ## 内容
 
+专题文章：
+
+- [GPT-5.6 与 Agent 工程范式转移](https://oldcod3r.github.io/notebook/gpt-5-6-agent-paradigm-shift.html)：从模型路由、推理强度、上下文工程、程序化工具和 Multi-Agent 看 Agent 架构的下一步。
+
 `pi` 系列按运行时链路排列：
 
 | # | 篇目 | 一句话 |
@@ -35,6 +39,7 @@ docs/
 │  ├─ config.mts        站点配置（导航、侧边栏、本地搜索）
 │  └─ theme/            自定义样式（代码块来源标注等）
 ├─ index.md             首页
+├─ gpt-5-6-agent-paradigm-shift.md
 └─ pi/
    ├─ index.md          分组总览
    └─ agent-loop.md     正文

@@ -10,8 +10,8 @@ hero:
       text: 从 pi agent harness 开始
       link: /pi/
     - theme: alt
-      text: 先读 pi-ai
-      link: /pi/pi-ai
+      text: GPT-5.6 Agent 范式转移
+      link: /gpt-5-6-agent-paradigm-shift
 
 features:
   - title: 逐段对照
@@ -20,4 +20,6 @@ features:
     details: 不复述函数签名，只解释「为什么这么写」——那些踩过坑才会留下的防御性代码。
   - title: 锚定 commit
     details: 每篇都标注对应的 commit，代码演进后仍然对得上号。
+  - title: Agent 工程观察
+    details: 从模型路由、上下文工程、工具边界和多 Agent 编排理解智能系统的架构变化。
 ---
