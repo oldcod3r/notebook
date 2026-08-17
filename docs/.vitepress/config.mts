@@ -18,6 +18,7 @@ export default defineConfig({
 		nav: [
 			{ text: "首页", link: "/" },
 			{ text: "pi", link: "/pi/" },
+			{ text: "GPT-5.6 Agent", link: "/gpt-5-6-agent-paradigm-shift" },
 		],
 
 		sidebar: {
