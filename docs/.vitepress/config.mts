@@ -18,10 +18,34 @@ export default defineConfig({
 		nav: [
 			{ text: "首页", link: "/" },
 			{ text: "pi", link: "/pi/" },
+			{ text: "DeepSeek Harness", link: "/deepseek-harness/" },
 			{ text: "GPT-5.6 Agent", link: "/gpt-5-6-agent-paradigm-shift" },
 		],
 
 		sidebar: {
+			"/deepseek-harness/": [
+				{
+					text: "DeepSeek Harness",
+					items: [
+						{ text: "内容索引", link: "/deepseek-harness/" },
+						{ text: "Agent Note 决策生命周期", link: "/deepseek-harness/agent-note-lifecycle" },
+						{ text: "事件溯源的 Agent 会话", link: "/deepseek-harness/event-sourced-sessions" },
+						{ text: "Subagent 多后端抽象", link: "/deepseek-harness/subagent-provider-seam" },
+						{ text: "后台 Subagent 任务模型", link: "/deepseek-harness/background-subagent-jobs" },
+						{ text: "持久化可继续 Subagent", link: "/deepseek-harness/continuable-subagent-sessions" },
+						{ text: "上下文压缩", link: "/deepseek-harness/context-compaction" },
+						{ text: "Skill 渐进式披露", link: "/deepseek-harness/progressive-skill-disclosure" },
+						{ text: "Agent 沙箱与权限升级", link: "/deepseek-harness/sandbox-and-escalation" },
+						{ text: "审批路由", link: "/deepseek-harness/approval-routing" },
+						{ text: "工具并行调度", link: "/deepseek-harness/parallel-tool-scheduling" },
+						{ text: "协作式工具取消", link: "/deepseek-harness/cooperative-tool-cancellation" },
+						{ text: "真实 API E2E", link: "/deepseek-harness/real-api-e2e" },
+						{ text: "Agent 工程文档写作", link: "/deepseek-harness/agent-prose-standard" },
+						{ text: "推理过程泄漏清理", link: "/deepseek-harness/reasoning-leakage" },
+						{ text: "Agent 项目代码审查", link: "/deepseek-harness/agent-code-review" },
+					],
+				},
+			],
 			"/pi/": [
 				{
 					text: "Pi Agent Harness",

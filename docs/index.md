@@ -10,6 +10,9 @@ hero:
       text: 从 pi agent harness 开始
       link: /pi/
     - theme: alt
+      text: DeepSeek Harness 工程实践
+      link: /deepseek-harness/
+    - theme: alt
       text: GPT-5.6 Agent 范式转移
       link: /gpt-5-6-agent-paradigm-shift
 
@@ -22,4 +25,6 @@ features:
     details: 每篇都标注对应的 commit，代码演进后仍然对得上号。
   - title: Agent 工程观察
     details: 从模型路由、上下文工程、工具边界和多 Agent 编排理解智能系统的架构变化。
+  - title: DeepSeek Harness 决策库
+    details: 从 Agent Notes 与专项 Skill 中提炼会话、Subagent、压缩、安全、测试和工程写作方法。
 ---

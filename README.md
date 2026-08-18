@@ -9,6 +9,7 @@
 专题文章：
 
 - [GPT-5.6 与 Agent 工程范式转移](https://oldcod3r.github.io/notebook/gpt-5-6-agent-paradigm-shift.html)：从模型路由、推理强度、上下文工程、程序化工具和 Multi-Agent 看 Agent 架构的下一步。
+- [DeepSeek Harness：Agent 工程实践](https://oldcod3r.github.io/notebook/deepseek-harness/)：从 Agent Notes 与专项 Skill 中提炼可迁移的架构决策和工程方法。
 
 `pi` 系列按运行时链路排列：
 
